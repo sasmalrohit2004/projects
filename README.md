@@ -102,15 +102,6 @@ PORT=5000
 * POST /api/auth/register
 * POST /api/auth/login
 
-## 📸 Screenshots
-
-Add screenshots of:
-
-* Home Page
-* Login Page
-* Product Details Page
-* Cart Page
-* Wishlist Page
 
 ## 🔮 Future Enhancements
 
@@ -123,7 +114,7 @@ Add screenshots of:
 
 ## 👨‍💻 Author
 
-**Rohit Sasmal
+Rohit Sasmal
 
 GitHub: https://github.com/sasmalrohit2004
 
