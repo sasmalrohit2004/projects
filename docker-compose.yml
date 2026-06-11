@@ -1,0 +1,29 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build: ./ecowear-backend
+    container_name: ecowear-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./ecowear-backend/.env
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./ecowear-frontend
+    container_name: ecowear-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
