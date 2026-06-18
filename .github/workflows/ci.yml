@@ -31,3 +31,9 @@ jobs:
       - name: Install Backend Dependencies
         working-directory: ./ecowear-backend
         run: npm install
+
+      - name: Build Frontend Docker Image
+        run: docker build -t ecowear-frontend ./ecowear-frontend
+
+      - name: Build Backend Docker Image
+        run: docker build -t ecowear-backend ./ecowear-backend
