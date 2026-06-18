@@ -9,7 +9,7 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import ProductDetails from "./pages/ProductDetails";
 import Wishlist from "./pages/Wishlist";
-
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 
 const App = () => {
@@ -24,7 +24,14 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
          <Route path="/product/:id" element={<ProductDetails />} />
          <Route path="/wishlist" element={<Wishlist />} />
-
+<Route
+  path="/"
+  element={
+    <ProtectedRoute>
+      <Home />
+    </ProtectedRoute>
+  }
+/>
       </Routes>
 
       <Footer />

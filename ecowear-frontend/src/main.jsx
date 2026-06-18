@@ -1,10 +1,10 @@
-// src/main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { WishlistProvider } from "./context/WishlistContext";
-
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { CartProvider } from "./context/CartContext";
 // AOS (Animate On Scroll)
 import "aos/dist/aos.css";
 import AOS from "aos";
@@ -14,8 +14,12 @@ AOS.init({ duration: 800, once: true });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <WishlistProvider>
+   <AuthProvider>
+  <WishlistProvider>
+    <CartProvider>
       <App />
-    </WishlistProvider>
+    </CartProvider>
+  </WishlistProvider>
+</AuthProvider>
   </React.StrictMode>
 );
