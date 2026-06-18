@@ -21,13 +21,13 @@ jobs:
           node-version: 20
 
       - name: Install Frontend Dependencies
-        working-directory: ./frontend
+        working-directory: ./ecowear-frontend
         run: npm install
 
       - name: Build Frontend
-        working-directory: ./frontend
+        working-directory: ./ecowear-frontend
         run: npm run build
 
       - name: Install Backend Dependencies
-        working-directory: ./backend
+        working-directory: ./ecowear-backend
         run: npm install
