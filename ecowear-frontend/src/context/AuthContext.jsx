@@ -1,10 +1,10 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
- 
+
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
@@ -14,12 +14,15 @@ export const AuthProvider = ({ children }) => {
     return localStorage.getItem("token") || null;
   });
 
-  // 🔄 LOGIN FUNCTION
+  // LOGIN FUNCTION
   const login = async (email, password) => {
-    const res = await axios.post("http://localhost:5000/api/auth/login", {
-      email,
-      password,
-    });
+    const res = await axios.post(
+      "http://13.51.167.117:5000/api/auth/login",
+      {
+        email,
+        password,
+      }
+    );
 
     localStorage.setItem("user", JSON.stringify(res.data.user));
     localStorage.setItem("token", res.data.token);
@@ -30,12 +33,15 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   };
 
-  // 🆕 REGISTER FUNCTION
+  // REGISTER FUNCTION
   const register = async (data) => {
-    return axios.post("http://localhost:5000/api/auth/register", data);
+    return axios.post(
+      "http://13.51.167.117:5000/api/auth/register",
+      data
+    );
   };
 
-  // 🚪 LOGOUT FUNCTION
+  // LOGOUT FUNCTION
   const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");

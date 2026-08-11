@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:5000/api/auth";
+const API = "http://13.51.167.117:5000/api/auth";
 
 function Register() {
   const navigate = useNavigate();
