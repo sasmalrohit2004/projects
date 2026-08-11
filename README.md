@@ -110,5 +110,5 @@ JWT_SECRET=ecowear_secret_key
 ## 👨‍💻 Author
 
 Rohit Sasmal
-B.Tech CSE (AI & ML)
+B.Tech CSE
 Full Stack Developer (MERN + Docker)

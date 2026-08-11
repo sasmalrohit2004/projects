@@ -2,28 +2,51 @@ services:
   mongodb:
     image: mongo:8
     container_name: mongodb
+    restart: unless-stopped
+    networks:
+      - ecowear-network
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
 
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
   backend:
     build: ./ecowear-backend
     container_name: ecowear-backend
+    restart: unless-stopped
+    networks:
+      - ecowear-network
     ports:
       - "5000:5000"
     env_file:
       - ./ecowear-backend/.env
+
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
 
   frontend:
     build: ./ecowear-frontend
     container_name: ecowear-frontend
+    restart: unless-stopped
+    networks:
+      - ecowear-network
     ports:
       - "5173:5173"
+
     depends_on:
       - backend
 
 volumes:
   mongodb_data:
+
+networks:
+  ecowear-network:
+    driver: bridge
