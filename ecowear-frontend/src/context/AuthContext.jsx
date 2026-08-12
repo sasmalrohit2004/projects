@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   // LOGIN FUNCTION
   const login = async (email, password) => {
     const res = await axios.post(
-      "http://13.51.167.117:5000/api/auth/login",
+      "/api/auth/login",
       {
         email,
         password,
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   // REGISTER FUNCTION
   const register = async (data) => {
     return axios.post(
-      "http://13.51.167.117:5000/api/auth/register",
+      "/api/auth/register",
       data
     );
   };
