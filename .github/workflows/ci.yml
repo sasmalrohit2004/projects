@@ -1,9 +1,13 @@
-name: EcoWear CI
+name: EcoWear CI/CD
 
 on:
   push:
     branches:
       - main
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   build:
@@ -48,3 +52,19 @@ jobs:
 
       - name: Push Backend Image
         run: docker push sasmalrohit2004/ecowear-backend:latest
+
+      # AWS authentication
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::853679583085:role/GitHubActions-EcoWear-CD
+          aws-region: eu-north-1
+
+      # SAFE CD TEST - does not modify anything
+      - name: Test SSM Connection
+        run: |
+          aws ssm send-command \
+            --instance-ids i-0a7616b70e8f682d5 \
+            --document-name "AWS-RunShellScript" \
+            --parameters 'commands=["docker ps"]' \
+            --region eu-north-1
