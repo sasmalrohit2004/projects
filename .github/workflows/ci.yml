@@ -53,18 +53,38 @@ jobs:
       - name: Push Backend Image
         run: docker push sasmalrohit2004/ecowear-backend:latest
 
-      # AWS authentication
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::853679583085:role/GitHubActions-EcoWear-CD
           aws-region: eu-north-1
 
-      # SAFE CD TEST - does not modify anything
-      - name: Test SSM Connection
+      - name: Deploy to EC2
         run: |
-          aws ssm send-command \
+          COMMAND_ID=$(aws ssm send-command \
             --instance-ids i-0a7616b70e8f682d5 \
             --document-name "AWS-RunShellScript" \
-            --parameters 'commands=["docker ps"]' \
+            --parameters 'commands=[
+              "sudo docker pull sasmalrohit2004/ecowear-frontend:latest",
+              "sudo docker pull sasmalrohit2004/ecowear-backend:latest",
+              "sudo docker rm -f ecowear-frontend || true",
+              "sudo docker rm -f ecowear-backend || true",
+              "sudo docker run -d --name ecowear-backend --network ecowear-network -p 5000:5000 --env-file /home/ec2-user/ecowear-backend.env --restart unless-stopped sasmalrohit2004/ecowear-backend:latest",
+              "sudo docker run -d --name ecowear-frontend --network ecowear-network -p 5173:5173 --restart unless-stopped sasmalrohit2004/ecowear-frontend:latest npm run dev -- --host 0.0.0.0",
+              "sudo docker ps"
+            ]' \
+            --region eu-north-1 \
+            --query "Command.CommandId" \
+            --output text)
+
+          echo "SSM Command ID: $COMMAND_ID"
+
+          aws ssm wait command-executed \
+            --command-id "$COMMAND_ID" \
+            --instance-id i-0a7616b70e8f682d5 \
+            --region eu-north-1
+
+          aws ssm get-command-invocation \
+            --command-id "$COMMAND_ID" \
+            --instance-id i-0a7616b70e8f682d5 \
             --region eu-north-1
