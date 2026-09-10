@@ -1,150 +1,225 @@
-# 🌿 EcoWear – Full Stack MERN E-Commerce & DevOps Project
+🌿 EcoWear – Full Stack MERN E-Commerce & DevOps Project
 
-EcoWear is a full-stack **MERN (MongoDB, Express.js, React.js, Node.js)** e-commerce application designed to demonstrate modern full-stack development and **DevOps practices**.
+EcoWear is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) e-commerce application developed as a practical project for learning full-stack development, Docker, CI/CD, cloud deployment, reverse proxying, and HTTPS.
 
-The project uses a **Dockerized multi-container architecture** with React, Node.js/Express, and MongoDB. It also includes REST APIs, JWT authentication, product management, database seeding, GitHub Actions CI/CD, Docker Hub image publishing, and AWS EC2 deployment.
+The application is now deployed through a real DevOps pipeline:
 
----
+Developer
+   │
+   │ git push
+   ▼
+GitHub
+   │
+   ▼
+GitHub Actions (CI/CD)
+   │
+   ├── Install dependencies
+   ├── Build frontend
+   ├── Build Docker images
+   ├── Login to Docker Hub
+   ├── Push frontend image
+   ├── Push backend image
+   ├── Authenticate to AWS using OIDC
+   └── Deploy to EC2 using AWS Systems Manager
+   │
+   ▼
+Docker Hub
+   │
+   ▼
+AWS EC2
+   │
+   ├── Nginx :80 / :443
+   ├── Frontend :5173
+   ├── Backend :5000
+   └── MongoDB :27017
+   │
+   ▼
+EcoWear
 
-## 🚀 Features
+🚀 Application Features
 
-### 👤 Authentication
+Authentication
 
-* 🔐 JWT-based user authentication
-* 🧑 User registration and login
-* 🔑 Password hashing using bcryptjs
-* 🛡️ Protected application routes
-* 🚪 Logout functionality
+JWT-based authentication
 
-### 🛍️ Product Management
+User registration and login
 
-* 📦 Product catalog stored in MongoDB
-* 🔎 Fetch all products
-* 🏷️ Filter products by category
-* 📄 View individual product details
-* ➕ Create products
-* ✏️ Update products
-* 🗑️ Delete products
-* 📊 Stock management
-* ⭐ Product ratings
-* ✅ Product availability status
+Password hashing with bcryptjs
 
-### 🌐 REST API
+Protected application routes
 
-Backend REST APIs are implemented using **Express.js** and **Mongoose**.
+Logout functionality
 
-Current product endpoints:
+Product Management
 
-| Method | Endpoint                     | Description              |
-| ------ | ---------------------------- | ------------------------ |
-| GET    | `/api/products`              | Get all products         |
-| GET    | `/api/products?category=Men` | Get products by category |
-| GET    | `/api/products/:id`          | Get a single product     |
-| POST   | `/api/products`              | Create a product         |
-| PUT    | `/api/products/:id`          | Update a product         |
-| DELETE | `/api/products/:id`          | Delete a product         |
+Product catalogue stored in MongoDB
 
-> POST, PUT and DELETE endpoints are prepared for authentication/authorization protection.
+View all products
 
-### 🛒 E-Commerce Features
+Filter products by category
 
-* 🛍️ Product catalog
-* ❤️ Wishlist
-* 🛒 Shopping cart
-* 📄 Product details page
-* 🔐 Protected user pages
-* 📦 Product stock information
-* 🏷️ Product categories
+View individual products
 
-### 🐳 DevOps & Containerization
+Create, update, and delete product endpoints
 
-* Dockerized frontend
-* Dockerized backend
-* MongoDB container
-* Docker Compose orchestration
-* Container-to-container networking
-* Environment variable configuration
-* Docker image builds
-* Docker Hub image publishing
+Stock information
 
-### ⚙️ CI/CD
+Product ratings
 
-* GitHub Actions CI/CD pipeline
-* Automated application builds
-* Docker image creation
-* Docker Hub image publishing
-* Automated deployment workflow
-* AWS EC2 deployment
-* AWS Systems Manager (SSM) based deployment
+Product availability status
 
----
+E-Commerce UI
 
-# 🛠️ Tech Stack
+Product catalogue
 
-## Frontend
+Product details
 
-* React.js
-* Vite
-* Bootstrap
-* React Router DOM
-* Axios
-* Framer Motion
-* React Icons
+Shopping cart
 
-## Backend
+Wishlist
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT
-* bcryptjs
-* REST API
+Protected user pages
 
-## DevOps
+Category browsing
 
-* Docker
-* Docker Compose
-* Git
-* GitHub
-* GitHub Actions
-* Docker Hub
-* AWS EC2
-* AWS Systems Manager (SSM)
+🌐 REST API
 
----
+The backend is implemented with Express.js, Mongoose, and REST APIs.
 
-# 📁 Project Structure
+Method
 
-```text
+Endpoint
+
+Description
+
+GET
+
+/api/products
+
+Get all products
+
+GET
+
+/api/products?category=Men
+
+Get products by category
+
+GET
+
+/api/products/:id
+
+Get one product
+
+POST
+
+/api/products
+
+Create a product
+
+PUT
+
+/api/products/:id
+
+Update a product
+
+DELETE
+
+/api/products/:id
+
+Delete a product
+
+Product write operations are prepared for authentication/authorization protection.
+
+🛠️ Technology Stack
+
+Frontend
+
+React.js
+
+Vite
+
+Bootstrap
+
+React Router DOM
+
+Axios
+
+Framer Motion
+
+React Icons
+
+AOS
+
+Backend
+
+Node.js
+
+Express.js
+
+MongoDB
+
+Mongoose
+
+JWT
+
+bcryptjs
+
+CORS
+
+dotenv
+
+Nodemon for development
+
+DevOps & Cloud
+
+Git
+
+GitHub
+
+GitHub Actions
+
+Docker
+
+Docker Compose
+
+Docker Hub
+
+AWS EC2
+
+Amazon Linux 2023
+
+AWS Systems Manager (SSM)
+
+AWS IAM OIDC authentication for GitHub Actions
+
+Nginx
+
+DuckDNS
+
+Let's Encrypt / Certbot
+
+📁 Project Structure
+
 ecowear/
 │
 ├── ecowear-frontend/
+│   ├── public/
 │   ├── src/
-│   │   ├── api/
-│   │   │   └── products.js
-│   │   ├── components/
-│   │   ├── context/
-│   │   ├── pages/
-│   │   ├── routes/
-│   │   └── App.jsx
-│   │
 │   ├── Dockerfile
-│   └── package.json
+│   ├── package.json
+│   └── vite.config.js
 │
 ├── ecowear-backend/
 │   ├── config/
 │   ├── controllers/
-│   │   └── productController.js
 │   ├── middleware/
 │   ├── models/
-│   │   └── Product.js
 │   ├── routes/
-│   │   └── productRoutes.js
 │   ├── seed.js
 │   ├── server.js
 │   ├── Dockerfile
-│   └── package.json
+│   ├── package.json
+│   └── .env
 │
 ├── .github/
 │   └── workflows/
@@ -152,113 +227,28 @@ ecowear/
 │
 ├── docker-compose.yml
 └── README.md
-```
 
----
+🐳 Docker Architecture
 
-# 🏗️ System Architecture
+EcoWear uses Docker Compose for the local multi-container environment.
 
-```text
-                    ┌─────────────────────┐
-                    │      GitHub         │
-                    │   Source Code       │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   GitHub Actions    │
-                    │      CI / CD        │
-                    └──────────┬──────────┘
-                               │
-                    ┌──────────▼──────────┐
-                    │     Docker Hub      │
-                    │  Container Images   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │      AWS EC2        │
-                    │                     │
-                    │  ┌───────────────┐  │
-                    │  │ React Frontend│  │
-                    │  └───────┬───────┘  │
-                    │          │           │
-                    │  ┌───────▼───────┐  │
-                    │  │ Express API   │  │
-                    │  └───────┬───────┘  │
-                    │          │           │
-                    │  ┌───────▼───────┐  │
-                    │  │    MongoDB     │  │
-                    │  └───────────────┘  │
-                    └─────────────────────┘
-```
-
-### Application Flow
-
-```text
-React Frontend
-      │
-      │ Axios HTTP Request
-      ▼
-Express REST API
-      │
-      │ Mongoose
-      ▼
-MongoDB
-      │
-      ▼
-JSON Response
-      │
-      ▼
-React UI
-```
-
----
-
-# 🐳 Docker Architecture
-
-EcoWear runs as multiple containers managed through Docker Compose.
-
-```text
-┌─────────────────────────────────────────┐
-│             Docker Compose              │
-│                                         │
-│  ┌─────────────┐                        │
-│  │  Frontend   │                        │
-│  │   React     │                        │
-│  │   Vite      │                        │
-│  └──────┬──────┘                        │
-│         │                                │
-│         ▼                                │
-│  ┌─────────────┐                        │
-│  │   Backend   │                        │
-│  │ Node/Express│                        │
-│  └──────┬──────┘                        │
-│         │                                │
-│         ▼                                │
-│  ┌─────────────┐                        │
-│  │   MongoDB   │                        │
-│  │  Database   │                        │
-│  └─────────────┘                        │
-│                                         │
-└─────────────────────────────────────────┘
-```
-
-The containers communicate through the Docker Compose network.
+                 Docker Compose
+                       │
+        ┌──────────────┼──────────────┐
+        ▼              ▼              ▼
+   Frontend         Backend        MongoDB
+    :5173             :5000          :27017
+        │              │
+        └────── ecowear-network ──────┘
 
 The backend connects to MongoDB using the Docker service name:
 
-```text
 mongodb://mongodb:27017/ecowear
-```
 
----
+This is important because localhost inside a container refers to that same container. Containers communicate through Docker service/container names.
 
-# 🗄️ Product Database Schema
+🗄️ Product Database Schema
 
-Products are stored in MongoDB using the following Mongoose schema:
-
-```text
 Product
 │
 ├── _id
@@ -272,350 +262,501 @@ Product
 ├── inStock
 ├── createdAt
 └── updatedAt
-```
 
-### Product Categories
+Product Categories
 
-```text
 Men
 Women
 Footwear
 Accessories
 All
-```
 
----
+🌱 Database Seeding
 
-# 🌱 Database Seeding
+A seed script is included to populate MongoDB with sample products.
 
-A seed script is included to populate MongoDB with sample EcoWear products.
+From the backend directory:
 
-Run:
-
-```bash
-cd ecowear-backend
 node seed.js
-```
 
-The seed script currently creates sample products including:
+Example products include:
 
-| Product                 | Category    |  Price |
-| ----------------------- | ----------- | -----: |
-| Organic Cotton T-Shirt  | Men         |   ₹899 |
-| Eco Summer Dress        | Women       | ₹1,899 |
-| Sustainable Denim Jeans | Men         | ���1,999 |
-| Eco Hoodie              | Women       | ₹2,499 |
-| Recycled Fabric Bag     | Accessories |   ₹699 |
-| Eco-Friendly Sneakers   | Footwear    | ₹2,499 |
+Product
 
----
+Category
 
-# ⚙️ Environment Variables
+Price
 
-Create a `.env` file inside the backend:
+Organic Cotton T-Shirt
 
-```env
+Men
+
+₹899
+
+Eco Summer Dress
+
+Women
+
+₹1,899
+
+Sustainable Denim Jeans
+
+Men
+
+₹1,999
+
+Eco Hoodie
+
+Women
+
+₹2,499
+
+Recycled Fabric Bag
+
+Accessories
+
+₹699
+
+Eco-Friendly Sneakers
+
+Footwear
+
+₹2,499
+
+🔐 Environment Variables
+
+The backend uses a .env file with variables such as:
+
 PORT=5000
 MONGO_URI=mongodb://mongodb:27017/ecowear
-JWT_SECRET=ecowear_secret_key
-```
+JWT_SECRET=your-secret-value
 
-> For production, sensitive values such as JWT secrets should be stored using secure environment/secret management instead of committing them to GitHub.
+Do not commit real secrets to GitHub. Production secrets should be stored using secure secret-management mechanisms.
 
----
+On the EC2 deployment, the backend receives environment variables from a server-side environment file rather than storing those values in the GitHub repository.
 
-# 🚀 Local Setup
+💻 Local Setup on Windows
 
-## 1. Clone the Repository
+1. Clone the repository
 
-```bash
 git clone https://github.com/sasmalrohit2004/projects.git
 cd projects
-```
 
-Navigate to the EcoWear project directory if it is stored inside the repository.
-
----
-
-## 2. Start the Application with Docker
-
-```bash
-docker compose up --build
-```
-
-This starts:
-
-```text
-Frontend
-Backend
-MongoDB
-```
-
----
-
-## 3. Seed the Database
-
-Open another terminal:
-
-```bash
-cd ecowear-backend
-node seed.js
-```
-
----
-
-## 4. Open the Application
+2. Install dependencies
 
 Frontend:
 
-```text
-http://localhost:5173
-```
+cd ecowear-frontend
+npm install
 
 Backend:
 
-```text
-http://localhost:5000
-```
+cd ..\ecowear-backend
+npm install
 
-Products API:
+3. Run with Docker Compose
 
-```text
-http://localhost:5000/api/products
-```
+From the repository root:
 
----
+docker compose up --build
 
-# 🧪 API Testing
+This starts:
 
-### Get all products
+Frontend on http://localhost:5173
 
-```bash
-curl http://localhost:5000/api/products
-```
+Backend on http://localhost:5000
 
-### Get products by category
+MongoDB on localhost:27017
 
-```bash
-curl "http://localhost:5000/api/products?category=Men"
-```
+4. Check containers
 
-### Get a product by ID
+docker compose ps
 
-```bash
-curl http://localhost:5000/api/products/<PRODUCT_ID>
-```
+⚙️ CI/CD Pipeline
 
----
+The GitHub Actions workflow is named EcoWear CI/CD and runs on pushes to the main branch.
 
-# 🔄 CI/CD Pipeline
+Current workflow stages:
 
-EcoWear uses **GitHub Actions** to automate the build and deployment workflow.
-
-```text
-Developer
-    │
-    │ git push
-    ▼
-GitHub Repository
-    │
-    ▼
+Git push
+   ↓
 GitHub Actions
-    │
-    ├── Install Dependencies
-    ├── Build Application
-    ├── Build Docker Images
-    ├── Push Images to Docker Hub
-    │
-    ▼
+   ↓
+Checkout source
+   ↓
+Setup Node.js
+   ↓
+Install frontend dependencies
+   ↓
+Build frontend
+   ↓
+Install backend dependencies
+   ↓
+Docker Hub login
+   ↓
+Build frontend image
+   ↓
+Build backend image
+   ↓
+Push images to Docker Hub
+   ↓
+AWS IAM OIDC authentication
+   ↓
+AWS Systems Manager
+   ↓
+EC2 deployment
+
+Docker Hub Images
+
+sasmalrohit2004/ecowear-frontend:latest
+sasmalrohit2004/ecowear-backend:latest
+
+GitHub Secrets
+
+The workflow uses GitHub Actions repository secrets for Docker Hub authentication:
+
+DOCKERHUB_USERNAME
+DOCKERHUB_TOKEN
+
+The Docker Hub token is not stored in the workflow file.
+
+AWS Authentication
+
+GitHub Actions authenticates to AWS using IAM OIDC and assumes the deployment role:
+
+GitHubActions-EcoWear-CD
+
+AWS Systems Manager then sends deployment commands to the EC2 instance.
+
+☁️ AWS EC2 Deployment
+
+The production-like environment uses:
+
+AWS EC2
+
+Amazon Linux 2023
+
+Docker
+
+Docker containers
+
+MongoDB
+
+Nginx
+
+AWS Systems Manager
+
+The deployment pulls the latest Docker Hub frontend and backend images and recreates the application containers.
+
+The EC2 server also maintains a MongoDB container and Docker network used by the deployed application.
+
+Important EC2 Resource Note
+
+The EC2 instance has a small root disk, so Docker image cleanup is important. During deployment, old dangling images consumed most of the disk space and caused a no space left on device error. The unused dangling images were removed safely, recovering approximately 2.96 GB of disk space.
+
+For a production environment, the server should use adequate storage and automated image/log cleanup.
+
+🌐 Nginx Reverse Proxy
+
+Nginx is used as the reverse proxy in front of the EcoWear containers.
+
+Internet
+   ↓
+Nginx :80 / :443
+   ├── Frontend → 127.0.0.1:5173
+   └── Backend  → 127.0.0.1:5000
+
+Users no longer need to access the application through port 5173 directly when using the public hostname.
+
+🔒 HTTPS
+
+HTTPS is configured using:
+
+DuckDNS for a free hostname
+
+Let's Encrypt for a free TLS certificate
+
+Certbot for certificate installation and management
+
+Nginx for HTTPS termination
+
+Current public URL
+
+https://ecowearstore.duckdns.org
+
+HTTP traffic is handled by Nginx and HTTPS is served using the Let's Encrypt certificate.
+
+The DuckDNS hostname is used for learning and demonstration. A production application would normally use a domain owned by the project/company.
+
+🧪 API Testing
+
+Example requests:
+
+curl http://localhost:5000/api/products
+
+Category filter:
+
+curl "http://localhost:5000/api/products?category=Men"
+
+Single product:
+
+curl http://localhost:5000/api/products/<PRODUCT_ID>
+
+🔐 Security Considerations
+
+Current project security includes:
+
+JWT authentication
+
+Password hashing with bcryptjs
+
+Protected frontend routes
+
+Environment variables
+
+GitHub Actions secrets for Docker Hub authentication
+
+AWS IAM OIDC instead of storing long-lived AWS keys in the workflow
+
+HTTPS using Let's Encrypt
+
+Future security improvements:
+
+Role-based authorization
+
+Production secret management
+
+API rate limiting
+
+Request validation
+
+Security headers
+
+MongoDB authentication and hardening
+
+Better network isolation
+
+Regular dependency/security scanning
+
+📊 Current Development Status
+
+Component
+
+Status
+
+MERN Application
+
+✅
+
+React Frontend
+
+✅
+
+Express Backend
+
+✅
+
+MongoDB Integration
+
+✅
+
+JWT Authentication
+
+✅
+
+Product API
+
+✅
+
+Product Model
+
+✅
+
+Product Seed Script
+
+✅
+
+Docker
+
+✅
+
+Docker Compose
+
+✅
+
+Docker Networking
+
+✅
+
+GitHub Actions CI/CD
+
+✅
+
+Docker Hub Publishing
+
+✅
+
+AWS EC2 Deployment
+
+✅
+
+AWS SSM Deployment
+
+✅
+
+Nginx Reverse Proxy
+
+✅
+
+HTTPS / TLS
+
+✅
+
+Free DNS (DuckDNS)
+
+✅
+
+Kubernetes
+
+⏳
+
+Terraform
+
+⏳
+
+Monitoring / Logging
+
+⏳
+
+Advanced Automated Testing
+
+⏳
+
+Production Secret Management
+
+⏳
+
+🔮 Next DevOps Roadmap
+
+The next learning stages are intentionally not completed yet:
+
+Git / GitHub
+      ↓
+Docker
+      ↓
+Docker Compose
+      ↓
+GitHub Actions CI/CD
+      ↓
 Docker Hub
-    │
-    ▼
+      ↓
 AWS EC2
-    │
-    └── Deployment through AWS SSM
-```
+      ↓
+Nginx
+      ↓
+HTTPS
+      ↓
+Kubernetes
+      ↓
+Terraform
+      ↓
+Monitoring & Logging
 
-### CI/CD Benefits
+Planned Kubernetes Work
 
-* Automated builds
-* Consistent Docker images
-* Reduced manual deployment
-* Version-controlled infrastructure
-* Automated deployment workflow
-* Faster development cycle
+Container orchestration
 
----
+Deployments
 
-# ☁️ AWS Deployment
+Services
 
-The application is prepared for deployment on **AWS EC2**.
+ConfigMaps
 
-Deployment components:
+Secrets
 
-```text
+Health checks
+
+Scaling
+
+Rolling updates
+
+Planned Infrastructure as Code
+
+Terraform for AWS infrastructure
+
+Reproducible infrastructure
+
+Variables and outputs
+
+State management
+
+Planned Observability
+
+Application logs
+
+Container logs
+
+Monitoring
+
+Metrics
+
+Health checks
+
+Alerts
+
+📚 DevOps Concepts Demonstrated
+
+This project currently demonstrates practical experience with:
+
+Git and GitHub
+
+Git branching and commits
+
+GitHub Actions
+
+CI/CD
+
+Docker images and containers
+
+Docker Compose
+
+Docker networking
+
+Docker Hub
+
+Environment variables and secrets
+
+REST APIs
+
+MongoDB
+
 AWS EC2
-   │
-   ├── Docker
-   ├── Docker Compose
-   ├── EcoWear Frontend
-   ├── EcoWear Backend
-   └── MongoDB
-```
 
-AWS Systems Manager (SSM) is used as part of the deployment workflow to execute commands on the EC2 instance.
+AWS Systems Manager
 
----
+AWS IAM OIDC
 
-# 📊 DevOps Workflow
+Nginx reverse proxy
 
-```text
-        CODE
-         │
-         ▼
-      GitHub
-         │
-         ▼
-   GitHub Actions
-         │
-         ├───────────────┐
-         ▼               ▼
-      Testing        Docker Build
-                         │
-                         ▼
-                     Docker Hub
-                         │
-                         ▼
-                       AWS
-                         │
-                         ▼
-                      EC2
-                         │
-                         ▼
-                   EcoWear App
-```
+DNS
 
----
+TLS/HTTPS
 
-# 🔐 Security Considerations
+Let's Encrypt
 
-Current security features include:
+Automated cloud deployment
 
-* JWT authentication
-* Password hashing with bcryptjs
-* Protected frontend routes
-* Environment variables for configuration
-* Authentication middleware prepared for protected product operations
+👨‍💻 Author
 
-Future production improvements include:
-
-* Role-based authorization
-* Secure secret management
-* HTTPS
-* API rate limiting
-* Request validation
-* Security headers
-* MongoDB authentication
-* Production logging and monitoring
-
----
-
-# 📈 Current Development Status
-
-| Component             | Status |
-| --------------------- | ------ |
-| MERN Application      | ✅      |
-| React Frontend        | ✅      |
-| Express Backend       | ✅      |
-| MongoDB Integration   | ✅      |
-| JWT Authentication    | ✅      |
-| Docker                | ✅      |
-| Docker Compose        | ✅      |
-| Product API           | ✅      |
-| Product MongoDB Model | ✅      |
-| Product Seed Script   | ✅      |
-| GitHub Actions CI/CD  | ✅      |
-| Docker Hub            | ✅      |
-| AWS EC2 Deployment    | ✅      |
-| AWS SSM Deployment    | ✅      |
-| Cart & Checkout       | 🔄     |
-| Payment Gateway       | 🔄     |
-| Admin Dashboard       | 🔄     |
-| Advanced Testing      | 🔄     |
-| Monitoring & Logging  | 🔄     |
-
----
-
-# 🔮 Future Improvements
-
-### E-Commerce
-
-* 🛒 Complete cart checkout workflow
-* 💳 Razorpay/Stripe payment integration
-* 📦 Order management
-* ❤️ Wishlist persistence
-* 🎟️ Coupon system
-* ⭐ Product reviews and ratings
-
-### Admin
-
-* 👨‍💼 Admin dashboard
-* ➕ Product creation UI
-* ✏️ Product editing
-* 🗑️ Product deletion
-* 📦 Order management
-* 👥 User role management
-
-### DevOps
-
-* 🔐 Production secrets management
-* 🧪 Automated unit and integration tests
-* 📊 Application monitoring
-* 📝 Centralized logging
-* 🌐 Nginx reverse proxy
-* 🔒 HTTPS with SSL/TLS
-* 🏗️ Infrastructure as Code using Terraform
-* 📦 Improved production Docker configuration
-* 🔄 Blue-green or rolling deployments
-
----
-
-# 📚 DevOps Concepts Demonstrated
-
-This project demonstrates practical experience with:
-
-* Git & GitHub
-* GitHub Actions
-* CI/CD
-* Docker
-* Docker Compose
-* Container networking
-* Docker Hub
-* Environment variables
-* REST APIs
-* MongoDB
-* AWS EC2
-* AWS Systems Manager
-* Automated deployment
-* Microservice-style container architecture
-
----
-
-# 👨‍💻 Author
-
-**Rohit Sasmal**
+Rohit Sasmal
 
 B.Tech CSE
 Full Stack Developer | MERN | Docker | DevOps
 
-### Technologies
+Technologies
 
-```text
 React | Node.js | Express | MongoDB
 Docker | GitHub Actions | Docker Hub
-AWS EC2 | AWS SSM | Git
-```
+AWS EC2 | AWS SSM | Nginx | HTTPS | Git
 
----
-
-⭐ **EcoWear is an ongoing project focused on combining full-stack development with practical DevOps and cloud deployment workflows.**
+⭐ EcoWear is an ongoing learning project focused on combining full-stack development with practical DevOps, CI/CD, containerization, cloud deployment, and infrastructure automation.
