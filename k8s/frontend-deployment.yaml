@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecowear-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecowear-frontend
+  template:
+    metadata:
+      labels:
+        app: ecowear-frontend
+    spec:
+      containers:
+        - name: ecowear-frontend
+          image: sasmalrohit2004/ecowear-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5173

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecowear-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ecowear-backend
+  template:
+    metadata:
+      labels:
+        app: ecowear-backend
+    spec:
+      containers:
+        - name: ecowear-backend
+          image: sasmalrohit2004/ecowear-backend:v1
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: MONGO_URI
+              value: "mongodb://mongodb:27017/ecowear"
+            - name: JWT_SECRET
+              valueFrom:
+                 secretKeyRef:
+                    name: ecowear-secret
+                    key: JWT_SECRET 
